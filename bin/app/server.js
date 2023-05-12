@@ -7,6 +7,7 @@ const illnessHandler = require('../modules/illness/handlers/api_handler');
 const symptomHandler = require('../modules/symptom/handlers/api_handler');
 const diagnosisHandler = require('../modules/diagnosis/handlers/api_handler');
 const relationHandler = require('../modules/relation/handlers/api_handler');
+const userHandler = require('../modules/user/handlers/api_handler');
 
 function AppServer() {
     this.server = restify.createServer({
@@ -53,6 +54,14 @@ function AppServer() {
     this.server.get('/getRelation/:relationId', relationHandler.getRelation);
     this.server.get('/getRelation', relationHandler.listRelation);
     this.server.del('/relation/:relationId', relationHandler.deleteRelation);
+
+    this.server.post('/user', userHandler.registerUser);
+    this.server.post('/user/login', userHandler.login);
+    this.server.put('/user/:userId', userHandler.updateUser);
+    this.server.put('/user/password/:userId', userHandler.changePassword);
+    this.server.get('/getUser/:userId', userHandler.getUser);
+    this.server.get('/getUser', userHandler.listUser);
+    this.server.del('/user/:userId', userHandler.deleteUser);
 }
 
 module.exports = AppServer;
