@@ -238,7 +238,9 @@ class Diagnosis {
 
         await Promise.all(resultIllness.map(async code => {
             const illness = await this.illnessQuery.findOne({ illnessCode: code, isDeleted: false })
-            resultDiagnosis.push(illness.data.illnessName)
+            resultDiagnosis.push({ illnessName: illness.data.illnessName,
+                explanation: illness.data.explanation,
+                solution: illness.data.solution })
         }))
 
         const data = {
@@ -248,7 +250,7 @@ class Diagnosis {
             patientGender,
             diagnosis: {
                 confidence: (maxDensitasValue * 100),
-                illnessName: resultDiagnosis
+                illness: resultDiagnosis,
             },
             isDeleted: false,
             createdAt: date,

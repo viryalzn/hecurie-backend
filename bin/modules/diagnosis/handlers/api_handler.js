@@ -17,7 +17,7 @@ const insertDiagnosis = async (req, res) => {
     const { data } = validate;
     const result = await commandHandler.insertDiagnosis({ ...data });
     return sendResponse(result, res, 'Hooray, The Diagnosis is Successfully Inserted' + '\n' +
-    'Your mood disorder diagnosis results are ' + result.data.diagnosis.illnessName + ' with a confidence level of ' +
+    'Your mood disorder diagnosis results are ' + result.data.diagnosis.illness[0].illnessName + ' with a confidence level of ' +
     result.data.diagnosis.confidence + '%.');
 };
 
