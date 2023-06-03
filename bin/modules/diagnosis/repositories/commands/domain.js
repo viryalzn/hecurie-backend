@@ -23,10 +23,137 @@ class Diagnosis {
         const date = new Date().toISOString();
         let densitas = [];
         let index = 0;
+        let categoryA = 0;
+        let categoryB = 0;
+        let categoryC = 0;
+        let categoryD = 0;
+        let categoryE = 0;
+        let categoryF = 0;
+        let categoryG = 0;
+        let categoryH = 0;
+        let categoryI = 0;
 
         await Promise.all(symptomCode.map(async code => {
             const symptom = await this.symptomQuery.findOne({ symptomCode: code, isDeleted: false })
-            const { belief, plausability, illnessCode } = symptom.data;
+            if (symptom.data.category === 'A') {
+                categoryA++;
+            } else if (symptom.data.category === 'B') {
+                categoryB++;
+            } else if (symptom.data.category === 'C') {
+                categoryC++;
+            } else if (symptom.data.category === 'D') {
+                categoryD++;
+            } else if (symptom.data.category === 'E') {
+                categoryE++;
+            } else if (symptom.data.category === 'F') {
+                categoryF++;
+            } else if (symptom.data.category === 'G') {
+                categoryG++;
+            } else if (symptom.data.category === 'H') {
+                categoryH++;
+            } else if (symptom.data.category === 'I') {
+                categoryI++;
+            }
+        }));
+
+        await Promise.all(symptomCode.map(async code => {
+            const symptom = await this.symptomQuery.findOne({ symptomCode: code, isDeleted: false })
+            const { belief, plausability } = symptom.data;
+            let illnessCode = symptom.data.illnessCode;
+
+            if (!symptomCode.includes('G5')) {
+                if (illnessCode.includes('PA3')) illnessCode.splice(illnessCode.indexOf('PA3'), 1);
+                if (illnessCode.includes('PB3')) illnessCode.splice(illnessCode.indexOf('PB3'), 1);
+            }
+
+            if (categoryA === 0) {
+                if (illnessCode.includes('PB8')) illnessCode.splice(illnessCode.indexOf('PB8'), 1);
+            }
+
+            if (categoryB > 0) {
+                if (illnessCode.includes('PA1')) illnessCode.splice(illnessCode.indexOf('PA1'), 1);
+                if (illnessCode.includes('PA2')) illnessCode.splice(illnessCode.indexOf('PA2'), 1);
+                if (illnessCode.includes('PA3')) illnessCode.splice(illnessCode.indexOf('PA3'), 1);
+                if (!symptomCode.includes('G5') && !symptomCode.includes('G4')) {
+                    if (illnessCode.includes('PB2')) illnessCode.splice(illnessCode.indexOf('PB2'), 1);
+                }
+            }
+
+            if (categoryB === 0) {
+                if (illnessCode.includes('PB1')) illnessCode.splice(illnessCode.indexOf('PB1'), 1);
+                if (illnessCode.includes('PB2')) illnessCode.splice(illnessCode.indexOf('PB2'), 1);
+                if (illnessCode.includes('PB3')) illnessCode.splice(illnessCode.indexOf('PB3'), 1);
+                if (illnessCode.includes('PB8')) illnessCode.splice(illnessCode.indexOf('PB8'), 1);
+                if (illnessCode.includes('PB9')) illnessCode.splice(illnessCode.indexOf('PB9'), 1);
+            }
+
+            if (categoryC === 3 && categoryD >= 4) {
+                if (illnessCode.includes('PA1')) illnessCode.splice(illnessCode.indexOf('PA1'), 1);
+                if (illnessCode.includes('PA2')) illnessCode.splice(illnessCode.indexOf('PA2'), 1);
+                if (illnessCode.includes('PA3')) illnessCode.splice(illnessCode.indexOf('PA3'), 1);
+                if (illnessCode.includes('PB1')) illnessCode.splice(illnessCode.indexOf('PB1'), 1);
+                if (illnessCode.includes('PB2')) illnessCode.splice(illnessCode.indexOf('PB2'), 1);
+                if (illnessCode.includes('PB3')) illnessCode.splice(illnessCode.indexOf('PB3'), 1);
+                if (illnessCode.includes('PB4')) illnessCode.splice(illnessCode.indexOf('PB4'), 1);
+                if (illnessCode.includes('PB5')) illnessCode.splice(illnessCode.indexOf('PB5'), 1);
+                if (illnessCode.includes('PC1')) illnessCode.splice(illnessCode.indexOf('PC1'), 1);
+                if (illnessCode.includes('PC2')) illnessCode.splice(illnessCode.indexOf('PC2'), 1);
+                if (illnessCode.includes('PD1')) illnessCode.splice(illnessCode.indexOf('PD1'), 1);
+                if (illnessCode.includes('PD2')) illnessCode.splice(illnessCode.indexOf('PD2'), 1);
+                if (!symptomCode.includes('G27')) {
+                    if (illnessCode.includes('PB7')) illnessCode.splice(illnessCode.indexOf('PB7'), 1);
+                    if (illnessCode.includes('PC4')) illnessCode.splice(illnessCode.indexOf('PC4'), 1);
+                    if (illnessCode.includes('PD4')) illnessCode.splice(illnessCode.indexOf('PD4'), 1);
+                }
+            } else if (categoryC >= 2 && categoryD >= 3) {
+                if (illnessCode.includes('PA1')) illnessCode.splice(illnessCode.indexOf('PA1'), 1);
+                if (illnessCode.includes('PA2')) illnessCode.splice(illnessCode.indexOf('PA2'), 1);
+                if (illnessCode.includes('PA3')) illnessCode.splice(illnessCode.indexOf('PA3'), 1);
+                if (illnessCode.includes('PB1')) illnessCode.splice(illnessCode.indexOf('PB1'), 1);
+                if (illnessCode.includes('PB2')) illnessCode.splice(illnessCode.indexOf('PB2'), 1);
+                if (illnessCode.includes('PB3')) illnessCode.splice(illnessCode.indexOf('PB3'), 1);
+                if (illnessCode.includes('PB4')) illnessCode.splice(illnessCode.indexOf('PB4'), 1);
+                if (illnessCode.includes('PB6')) illnessCode.splice(illnessCode.indexOf('PB6'), 1);
+                if (illnessCode.includes('PB7')) illnessCode.splice(illnessCode.indexOf('PB7'), 1);
+                if (illnessCode.includes('PC1')) illnessCode.splice(illnessCode.indexOf('PC1'), 1);
+                if (illnessCode.includes('PC3')) illnessCode.splice(illnessCode.indexOf('PC3'), 1);
+                if (illnessCode.includes('PC4')) illnessCode.splice(illnessCode.indexOf('PC4'), 1);
+                if (illnessCode.includes('PD1')) illnessCode.splice(illnessCode.indexOf('PD1'), 1);
+                if (illnessCode.includes('PD3')) illnessCode.splice(illnessCode.indexOf('PD3'), 1);
+                if (illnessCode.includes('PD4')) illnessCode.splice(illnessCode.indexOf('PD4'), 1);
+            } else if (categoryC >= 2 && categoryD >= 3) {
+                if (illnessCode.includes('PA1')) illnessCode.splice(illnessCode.indexOf('PA1'), 1);
+                if (illnessCode.includes('PA2')) illnessCode.splice(illnessCode.indexOf('PA2'), 1);
+                if (illnessCode.includes('PA3')) illnessCode.splice(illnessCode.indexOf('PA3'), 1);
+                if (illnessCode.includes('PB1')) illnessCode.splice(illnessCode.indexOf('PB1'), 1);
+                if (illnessCode.includes('PB2')) illnessCode.splice(illnessCode.indexOf('PB2'), 1);
+                if (illnessCode.includes('PB3')) illnessCode.splice(illnessCode.indexOf('PB3'), 1);
+                if (illnessCode.includes('PB5')) illnessCode.splice(illnessCode.indexOf('PB5'), 1);
+                if (illnessCode.includes('PB6')) illnessCode.splice(illnessCode.indexOf('PB6'), 1);
+                if (illnessCode.includes('PB7')) illnessCode.splice(illnessCode.indexOf('PB7'), 1);
+                if (illnessCode.includes('PC2')) illnessCode.splice(illnessCode.indexOf('PC2'), 1);
+                if (illnessCode.includes('PC3')) illnessCode.splice(illnessCode.indexOf('PC3'), 1);
+                if (illnessCode.includes('PC4')) illnessCode.splice(illnessCode.indexOf('PC4'), 1);
+                if (illnessCode.includes('PD2')) illnessCode.splice(illnessCode.indexOf('PD2'), 1);
+                if (illnessCode.includes('PD3')) illnessCode.splice(illnessCode.indexOf('PD3'), 1);
+                if (illnessCode.includes('PD4')) illnessCode.splice(illnessCode.indexOf('PD4'), 1);
+            }
+
+            if (categoryH === 0) {
+                if (illnessCode.includes('PB4')) illnessCode.splice(illnessCode.indexOf('PB4'), 1);
+                if (illnessCode.includes('PB5')) illnessCode.splice(illnessCode.indexOf('PB5'), 1);
+                if (illnessCode.includes('PB6')) illnessCode.splice(illnessCode.indexOf('PB6'), 1);
+                if (illnessCode.includes('PB7')) illnessCode.splice(illnessCode.indexOf('PB7'), 1);
+                if (illnessCode.includes('PB8')) illnessCode.splice(illnessCode.indexOf('PB8'), 1);
+                if (illnessCode.includes('PB9')) illnessCode.splice(illnessCode.indexOf('PB9'), 1);
+            }
+
+            if (categoryF === 0) {
+                if (illnessCode.includes('PD1')) illnessCode.splice(illnessCode.indexOf('PD1'), 1);
+                if (illnessCode.includes('PD2')) illnessCode.splice(illnessCode.indexOf('PD2'), 1);
+                if (illnessCode.includes('PD3')) illnessCode.splice(illnessCode.indexOf('PD3'), 1);
+                if (illnessCode.includes('PD4')) illnessCode.splice(illnessCode.indexOf('PD4'), 1);
+            }
 
             // Membuat Nilai Densitas Berdasarkan Nilai Belief
             if (index === 1 || index === 0) {

@@ -1,4 +1,4 @@
-const collection = 'illness-dummy';
+const collection = 'illness-real-test';
 
 class Query {
 

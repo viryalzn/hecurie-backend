@@ -7,9 +7,10 @@ const Joi = require("joi");
 const insertSymptom = () => {
     return joi.object({
         symptomId: joi.string().forbidden().default(uuid()),
-        symptomCode: Joi.string().optional(),
+        symptomCode: Joi.string().required(),
         symptomName: joi.string().required(),
         belief: joi.number().required(),
+        category: joi.string().required(),
         isDeleted: joi.bool().forbidden().default(false),
         createdAt: joi.string().forbidden().default(new Date().toISOString()),
         createdBy: joi.string().forbidden().default(''),
@@ -23,6 +24,7 @@ const updateSymptom = () => {
         symptomId: joi.string().guid().required(),
         symptomName: joi.string().required(),
         belief: joi.number().required(),
+        category: joi.string().required(),
         isDeleted: joi.bool().optional()
     });
 };

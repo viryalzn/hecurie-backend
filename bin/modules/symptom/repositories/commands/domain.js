@@ -13,18 +13,20 @@ class Symptom {
     }
 
     async insertSymptom(payload) {
-        const { symptomName, symptomCode, belief } = payload;
+        const { symptomName, symptomCode, belief, category } = payload;
 
         const existingSymptom = await this.query.findOne({ symptomCode, isDeleted: false });
         if (existingSymptom.data) return wrapper.error(new ConflictError('Sudah ada gejala dengan kode ' + symptomCode));
 
         const date = new Date().toISOString();
+        const plausability = 1 - belief;
         const data = {
             symptomId: uuid(),
             symptomCode,
             symptomName,
-            belief,
-            plausability: 1 - belief,
+            belief: belief.toFixed(2),
+            category,
+            plausability: plausability.toFixed(2),
             isDeleted: false,
             createdAt: date,
             modifiedAt: date
@@ -40,7 +42,7 @@ class Symptom {
 
     async updateSymptom(payload) {
         const ctx = 'domain-updateSymptom';
-        const { symptomId, symptomName, belief } = payload;
+        const { symptomId, symptomName, belief, category } = payload;
 
         const symptom = await this.query.findOne({ symptomId, isDeleted: false });
         if (symptom.err) {
@@ -48,11 +50,13 @@ class Symptom {
             return wrapper.error(new ConflictError('Symptom not found'));
         }
 
+        const plausability = 1 - belief;
         const data = {
             $set: {
                 symptomName,
-                belief,
-                plausability: 1 - belief,
+                belief: belief.toFixed(2),
+                category,
+                plausability: plausability.toFixed(2),
                 isDeleted: false,
                 modifiedAt: new Date().toISOString()
             }

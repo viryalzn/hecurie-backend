@@ -1,4 +1,4 @@
-const collection = 'symptom-dummy';
+const collection = 'symptom-real-test';
 // const collection = 'post';
 class Command {
 

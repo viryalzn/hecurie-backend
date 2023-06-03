@@ -44,11 +44,15 @@ class User {
     async login(payload) {
         const ctx = 'domain-login';
         const { username, password } = payload;
+        let user;
 
-        const user = await this.query.findOne({ username, isDeleted: false });
+        user = await this.query.findOne({ username, isDeleted: false });
         if (user.err) {
-            logger.log(ctx, false, 'User not found');
-            return wrapper.error(new ConflictError('User not found'));
+            user = await this.query.findOne({ email: username, isDeleted: false });
+            if (user.err) {
+                logger.log(ctx, false, 'User not found');
+                return wrapper.error(new ConflictError('User not found'));
+            }
         }
 
         if (username === user.data.username && password === user.data.password) {

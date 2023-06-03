@@ -35,7 +35,7 @@ class Illness {
                 $sort: payload.sort
             },
             { $skip: payload.size * (payload.page - 1) },
-            { $limit: payload.size }
+            // { $limit: payload.size }
         ];
 
         const illness = await this.query.aggregate(aggregate);
@@ -50,7 +50,7 @@ class Illness {
 
         const metaData = {
             page: payload.page,
-            size: payload.size,
+            // size: payload.size,
             dataLength: result.length,
             MaxData: countData.data,
             MaxPage: Math.ceil(countData.data / payload.size)

@@ -1,4 +1,4 @@
-const collection = 'symptom-dummy';
+const collection = 'symptom-real-test';
 
 class Query {
 

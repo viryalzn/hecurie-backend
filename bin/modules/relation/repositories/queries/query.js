@@ -1,4 +1,4 @@
-const collection = 'relation-dummy';
+const collection = 'relation-real-test';
 
 class Query {
 
