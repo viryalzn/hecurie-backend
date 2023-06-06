@@ -48,6 +48,7 @@ function AppServer() {
     this.server.post('/diagnosis', diagnosisHandler.insertDiagnosis);
     this.server.get('/getDiagnosis/:patientId', diagnosisHandler.getDiagnosis);
     this.server.get('/getDiagnosis', diagnosisHandler.listDiagnosis);
+    this.server.del('/diagnosis/:patientId', diagnosisHandler.deleteDiagnosis);
 
     this.server.post('/relation', relationHandler.insertRelation);
     this.server.put('/relation/:relationId', relationHandler.updateRelation);

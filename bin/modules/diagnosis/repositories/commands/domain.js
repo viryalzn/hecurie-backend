@@ -89,6 +89,9 @@ class Diagnosis {
                     if (illnessCode.includes('PB8')) illnessCode.splice(illnessCode.indexOf('PB8'), 1);
                     if (illnessCode.includes('PB9')) illnessCode.splice(illnessCode.indexOf('PB9'), 1);
                 }
+                if (categoryA === 0) {
+                    if (illnessCode.includes('PB8')) illnessCode.splice(illnessCode.indexOf('PB8'), 1);
+                }
             } else if (categoryC >= 2 && categoryD >= 3) {
                 if (illnessCode.includes('PA1')) illnessCode.splice(illnessCode.indexOf('PA1'), 1);
                 if (illnessCode.includes('PA2')) illnessCode.splice(illnessCode.indexOf('PA2'), 1);
@@ -113,7 +116,10 @@ class Diagnosis {
                     if (illnessCode.includes('PB8')) illnessCode.splice(illnessCode.indexOf('PB8'), 1);
                     if (illnessCode.includes('PB9')) illnessCode.splice(illnessCode.indexOf('PB9'), 1);
                 }
-            } else if (categoryC >= 2 && categoryD >= 3) {
+                if (categoryA === 0) {
+                    if (illnessCode.includes('PB8')) illnessCode.splice(illnessCode.indexOf('PB8'), 1);
+                }
+            } else if (categoryC >= 2 && categoryD >= 2) {
                 if (illnessCode.includes('PA1')) illnessCode.splice(illnessCode.indexOf('PA1'), 1);
                 if (illnessCode.includes('PA2')) illnessCode.splice(illnessCode.indexOf('PA2'), 1);
                 if (illnessCode.includes('PA3')) illnessCode.splice(illnessCode.indexOf('PA3'), 1);
@@ -136,6 +142,9 @@ class Diagnosis {
                     if (illnessCode.includes('PB4')) illnessCode.splice(illnessCode.indexOf('PB4'), 1);
                     if (illnessCode.includes('PB8')) illnessCode.splice(illnessCode.indexOf('PB8'), 1);
                     if (illnessCode.includes('PB9')) illnessCode.splice(illnessCode.indexOf('PB9'), 1);
+                }
+                if (categoryA === 0) {
+                    if (illnessCode.includes('PB8')) illnessCode.splice(illnessCode.indexOf('PB8'), 1);
                 }
             } else {
                 if (illnessCode.includes('PB4')) illnessCode.splice(illnessCode.indexOf('PB4'), 1);
@@ -168,6 +177,9 @@ class Diagnosis {
                     if (illnessCode.includes('PB2')) illnessCode.splice(illnessCode.indexOf('PB2'), 1);
                     if (illnessCode.includes('PB3')) illnessCode.splice(illnessCode.indexOf('PB3'), 1);
                     if (illnessCode.includes('PB9')) illnessCode.splice(illnessCode.indexOf('PB9'), 1);
+                }
+                if (categoryH === 0) {
+                    if (illnessCode.includes('PB8')) illnessCode.splice(illnessCode.indexOf('PB8'), 1);
                 }
             }
 
@@ -308,12 +320,11 @@ class Diagnosis {
     }
 
     async deleteDiagnosis(payload) {
-        console.log(payload)
         const ctx = 'domain-deleteDiagnosis';
-        const { diagnosisId } = payload;
+        const { patientId } = payload;
 
         const diagnosis = await this.query.findOne({
-            diagnosisId
+            patientId
         });
 
         if (diagnosis.err) {
@@ -329,7 +340,7 @@ class Diagnosis {
             }
         };
 
-        const { data: result, err } = await this.command.upsertOne({ diagnosisId }, document);
+        const { data: result, err } = await this.command.upsertOne({ patientId }, document);
         if (err) {
             logger.log(ctx, 'Failed to update data.', err);
             return wrapper.error(new BadRequestError('Failed to update data.'));

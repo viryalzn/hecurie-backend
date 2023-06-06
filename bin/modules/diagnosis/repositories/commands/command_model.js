@@ -37,9 +37,9 @@ const updateIllness = () => {
     });
 };
 
-const deleteIllness = () => {
+const deleteDiagnosis = () => {
     return joi.object({
-        illnessId: joi.string().required()
+        patientId: joi.string().required()
     });
 };
 
@@ -48,5 +48,5 @@ module.exports = {
     insertBiodata,
     insertDiagnosis,
     updateIllness,
-    deleteIllness
+    deleteDiagnosis
 };
