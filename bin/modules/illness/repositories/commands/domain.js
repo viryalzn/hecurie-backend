@@ -17,7 +17,7 @@ class Illness {
     }
 
     async insertIllness(payload) {
-        const { illnessName, illnessCode, explanation, solution } = payload;
+        const { illnessName, illnessCode, illnessCategory, explanation, solution } = payload;
 
         const existingIllness = await this.query.findOne({ illnessCode, isDeleted: false });
         if (existingIllness.data) return wrapper.error(new ConflictError('Sudah ada penyakit dengan kode ' + illnessCode));
@@ -27,6 +27,7 @@ class Illness {
             illnessId : uuid(),
             illnessCode,
             illnessName,
+            illnessCategory,
             explanation,
             solution,
             isDeleted: false,
@@ -45,7 +46,7 @@ class Illness {
     async updateIllness(payload) {
         console.log(payload)
         const ctx = 'domain-updateIllness';
-        const { illnessId, illnessName, explanation, solution } = payload;
+        const { illnessId, illnessName, illnessCategory, explanation, solution } = payload;
 
         const illness = await this.query.findOne({ illnessId, isDeleted: false });
         if (illness.err) {
@@ -57,6 +58,7 @@ class Illness {
             $set: {
                 illnessName,
                 explanation,
+                illnessCategory,
                 solution,
                 isDeleted: false,
                 modifiedAt: new Date().toISOString()

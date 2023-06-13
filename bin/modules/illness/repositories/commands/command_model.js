@@ -9,6 +9,7 @@ const insertIllness = () => {
         illnessId: joi.string().forbidden().default(uuid()),
         illnessCode: Joi.string().optional(),
         illnessName: joi.string().required(),
+        illnessCategory: joi.string().required(),
         explanation: joi.string().required(),
         // solution: joi.array().items(joi.string()).required(),
         solution: joi.string().required(),
@@ -24,6 +25,7 @@ const updateIllness = () => {
     return joi.object().keys({
         illnessId: joi.string().guid().required(),
         illnessName: joi.string().required(),
+        illnessCategory: joi.string().required(),
         explanation: joi.string().required(),
         // solution: joi.array().items(joi.string()).required(),
         solution: joi.string().required(),
