@@ -46,6 +46,7 @@ function AppServer() {
     this.server.del('/symptom/:symptomId', symptomHandler.deleteSymptom);
 
     this.server.post('/diagnosis', diagnosisHandler.insertDiagnosis);
+    // this.server.put('/diagnosis/:patientId', diagnosisHandler.prosesDiagnosis);
     this.server.get('/getDiagnosis/:patientId', diagnosisHandler.getDiagnosis);
     this.server.get('/getDiagnosis', diagnosisHandler.listDiagnosis);
     this.server.del('/diagnosis/:patientId', diagnosisHandler.deleteDiagnosis);

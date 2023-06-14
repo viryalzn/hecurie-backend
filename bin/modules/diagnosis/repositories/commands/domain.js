@@ -70,6 +70,7 @@ class Diagnosis {
                 if (illnessCode.includes('PB3')) illnessCode.splice(illnessCode.indexOf('PB3'), 1);
                 if (illnessCode.includes('PB4')) illnessCode.splice(illnessCode.indexOf('PB4'), 1);
                 if (illnessCode.includes('PB5')) illnessCode.splice(illnessCode.indexOf('PB5'), 1);
+                if (illnessCode.includes('PB9')) illnessCode.splice(illnessCode.indexOf('PB9'), 1);
                 if (illnessCode.includes('PC1')) illnessCode.splice(illnessCode.indexOf('PC1'), 1);
                 if (illnessCode.includes('PC2')) illnessCode.splice(illnessCode.indexOf('PC2'), 1);
                 if (illnessCode.includes('PD1')) illnessCode.splice(illnessCode.indexOf('PD1'), 1);
@@ -88,6 +89,9 @@ class Diagnosis {
                     if (illnessCode.includes('PB7')) illnessCode.splice(illnessCode.indexOf('PB7'), 1);
                     if (illnessCode.includes('PB8')) illnessCode.splice(illnessCode.indexOf('PB8'), 1);
                     if (illnessCode.includes('PB9')) illnessCode.splice(illnessCode.indexOf('PB9'), 1);
+                } else if (categoryH > 0) {
+                    if (illnessCode.includes('PC3')) illnessCode.splice(illnessCode.indexOf('PC3'), 1);
+                    if (illnessCode.includes('PC4')) illnessCode.splice(illnessCode.indexOf('PC4'), 1);
                 }
                 if (categoryA === 0) {
                     if (illnessCode.includes('PB8')) illnessCode.splice(illnessCode.indexOf('PB8'), 1);
@@ -160,7 +164,7 @@ class Diagnosis {
                 if (illnessCode.includes('PD2')) illnessCode.splice(illnessCode.indexOf('PD2'), 1);
                 if (illnessCode.includes('PD3')) illnessCode.splice(illnessCode.indexOf('PD3'), 1);
                 if (illnessCode.includes('PD4')) illnessCode.splice(illnessCode.indexOf('PD4'), 1);
-                if (symptomCode.includes('G3') && symptomCode.includes('G3') && !symptomCode.includes('G5')) {
+                if (!symptomCode.includes('G5')) {
                     if (illnessCode.includes('PA3')) illnessCode.splice(illnessCode.indexOf('PA3'), 1);
                     if (illnessCode.includes('PB3')) illnessCode.splice(illnessCode.indexOf('PB3'), 1);
                 }
@@ -183,72 +187,154 @@ class Diagnosis {
                 }
             }
 
-            // Membuat Nilai Densitas untuk Gejala 1 dan 2 Berdasarkan Nilai Belief
-            if (index === 1 || index === 0) {
-                densitas.push([
-                    { densitasName: 'm' + (densitas.length + 1) + '{' + illnessCode + '}', densitasValue: belief, illnessCode },
-                    { densitasName: 'm' + (densitas.length + 1) + '{θ}', densitasValue: plausability, illnessCode: [ 'θ' ] }]);
+            // if (categoryC === 3 && categoryD >= 4) {
+            //     if (illnessCode.includes('PB4')) illnessCode.splice(illnessCode.indexOf('PB4'), 1);
+            //     if (illnessCode.includes('PB5')) illnessCode.splice(illnessCode.indexOf('PB5'), 1);
+            //     if (illnessCode.includes('PC1')) illnessCode.splice(illnessCode.indexOf('PC1'), 1);
+            //     if (illnessCode.includes('PC2')) illnessCode.splice(illnessCode.indexOf('PC2'), 1);
+            //     if (illnessCode.includes('PD1')) illnessCode.splice(illnessCode.indexOf('PD1'), 1);
+            //     if (illnessCode.includes('PD2')) illnessCode.splice(illnessCode.indexOf('PD2'), 1);
+            // } else if (categoryC >=2 && categoryD >= 3) {
+            //     if (illnessCode.includes('PB4')) illnessCode.splice(illnessCode.indexOf('PB4'), 1);
+            //     if (illnessCode.includes('PB6')) illnessCode.splice(illnessCode.indexOf('PB6'), 1);
+            //     if (illnessCode.includes('PB7')) illnessCode.splice(illnessCode.indexOf('PB7'), 1);
+            //     if (illnessCode.includes('PC1')) illnessCode.splice(illnessCode.indexOf('PC1'), 1);
+            //     if (illnessCode.includes('PC3')) illnessCode.splice(illnessCode.indexOf('PC3'), 1);
+            //     if (illnessCode.includes('PC4')) illnessCode.splice(illnessCode.indexOf('PC4'), 1);
+            //     if (illnessCode.includes('PD1')) illnessCode.splice(illnessCode.indexOf('PD1'), 1);
+            //     if (illnessCode.includes('PD3')) illnessCode.splice(illnessCode.indexOf('PD3'), 1);
+            //     if (illnessCode.includes('PD4')) illnessCode.splice(illnessCode.indexOf('PD4'), 1);
+            // } else if (categoryC >= 2 && categoryD >= 2) {
+            //     if (illnessCode.includes('PB5')) illnessCode.splice(illnessCode.indexOf('PB5'), 1);
+            //     if (illnessCode.includes('PB6')) illnessCode.splice(illnessCode.indexOf('PB6'), 1);
+            //     if (illnessCode.includes('PB7')) illnessCode.splice(illnessCode.indexOf('PB7'), 1);
+            //     if (illnessCode.includes('PC2')) illnessCode.splice(illnessCode.indexOf('PC2'), 1);
+            //     if (illnessCode.includes('PC3')) illnessCode.splice(illnessCode.indexOf('PC3'), 1);
+            //     if (illnessCode.includes('PC4')) illnessCode.splice(illnessCode.indexOf('PC4'), 1);
+            //     if (illnessCode.includes('PD2')) illnessCode.splice(illnessCode.indexOf('PD2'), 1);
+            //     if (illnessCode.includes('PD3')) illnessCode.splice(illnessCode.indexOf('PD3'), 1);
+            //     if (illnessCode.includes('PD4')) illnessCode.splice(illnessCode.indexOf('PD4'), 1);
+            // }
+            //
+            // if (categoryB === 0) {
+            //     if (illnessCode.includes('PB1')) illnessCode.splice(illnessCode.indexOf('PB1'), 1);
+            //     if (illnessCode.includes('PB2')) illnessCode.splice(illnessCode.indexOf('PB2'), 1);
+            //     if (illnessCode.includes('PB3')) illnessCode.splice(illnessCode.indexOf('PB3'), 1);
+            //     if (illnessCode.includes('PB9')) illnessCode.splice(illnessCode.indexOf('PB9'), 1);
+            // }
+            //
+            // if ((categoryC < 2 && categoryD < 2) || categoryA === 0) {
+            //     if (illnessCode.includes('PB8')) illnessCode.splice(illnessCode.indexOf('PB8'), 1);
+            // }
+            //
+            // if (!symptomCode.includes('G5')) {
+            //     if (illnessCode.includes('PA3')) illnessCode.splice(illnessCode.indexOf('PA3'), 1);
+            //     if (illnessCode.includes('PB3')) illnessCode.splice(illnessCode.indexOf('PB3'), 1);
+            // }
+            //
+            // if (!symptomCode.includes('G27')) {
+            //     if (illnessCode.includes('PB7')) illnessCode.splice(illnessCode.indexOf('PB7'), 1);
+            //     if (illnessCode.includes('PC4')) illnessCode.splice(illnessCode.indexOf('PC4'), 1);
+            //     if (illnessCode.includes('PD4')) illnessCode.splice(illnessCode.indexOf('PD4'), 1);
+            // }
+            //
+            // if (categoryF === 0) {
+            //     if (illnessCode.includes('PD1')) illnessCode.splice(illnessCode.indexOf('PD1'), 1);
+            //     if (illnessCode.includes('PD2')) illnessCode.splice(illnessCode.indexOf('PD2'), 1);
+            //     if (illnessCode.includes('PD3')) illnessCode.splice(illnessCode.indexOf('PD3'), 1);
+            //     if (illnessCode.includes('PD4')) illnessCode.splice(illnessCode.indexOf('PD4'), 1);
+            // } else if (categoryF > 0) {
+            //     if (illnessCode.includes('PC1')) illnessCode.splice(illnessCode.indexOf('PC1'), 1);
+            //     if (illnessCode.includes('PC2')) illnessCode.splice(illnessCode.indexOf('PC2'), 1);
+            //     if (illnessCode.includes('PC3')) illnessCode.splice(illnessCode.indexOf('PC3'), 1);
+            //     if (illnessCode.includes('PC4')) illnessCode.splice(illnessCode.indexOf('PC4'), 1);
+            // }
+            //
+            // if (categoryH === 0) {
+            //     if (illnessCode.includes('PB4')) illnessCode.splice(illnessCode.indexOf('PB4'), 1);
+            //     if (illnessCode.includes('PB5')) illnessCode.splice(illnessCode.indexOf('PB5'), 1);
+            //     if (illnessCode.includes('PB6')) illnessCode.splice(illnessCode.indexOf('PB6'), 1);
+            //     if (illnessCode.includes('PB7')) illnessCode.splice(illnessCode.indexOf('PB7'), 1);
+            //     if (illnessCode.includes('PB9')) illnessCode.splice(illnessCode.indexOf('PB9'), 1);
+            // } else if (categoryH > 0) {
+            //     if (illnessCode.includes('PC1')) illnessCode.splice(illnessCode.indexOf('PC1'), 1);
+            //     if (illnessCode.includes('PC2')) illnessCode.splice(illnessCode.indexOf('PC2'), 1);
+            //     if (illnessCode.includes('PC3')) illnessCode.splice(illnessCode.indexOf('PC3'), 1);
+            //     if (illnessCode.includes('PC4')) illnessCode.splice(illnessCode.indexOf('PC4'), 1);
+            // }
+
+            if (isEmpty(illnessCode)) {
+                index--;
             } else {
-                densitas.push([
-                    { densitasName: 'm' + (densitas.length + 1) + '{' + illnessCode + '}', densitasValue: belief, illnessCode },
-                    { densitasName: 'm' + (densitas.length + 1) + '{θ}', densitasValue: plausability, illnessCode: [ 'θ' ] }]);
-            }
-
-            // Membuat Nilai Densitas Baru
-            if (symptomCode.length > 1 && index > 0) {
-                const newDensitas = [];
-                let densitas1 = densitas[densitas.length - 2]
-                let densitas2 = densitas[densitas.length - 1]
-                let tempIllness = [];
-                let conflict = 0;
-                let union = [];
-
-                for (var x in densitas1) {
-                    const illnessesA = densitas2[0].illnessCode;
-                    const illnessesB = densitas1[x].illnessCode;
-                    const intersection = illnessesA.filter(member => illnessesB.includes(member));
-
-                    if (isEmpty(intersection) && densitas1[x].illnessCode[0] !== 'θ') {
-                        conflict = densitas1[x].densitasValue * densitas2[0].densitasValue;
-                    }
-
-                    if (densitas1[x].illnessCode[0] === 'θ') {
-                        tempIllness.push({ illnessCode: illnessesA, densitasValue: densitas1[x].densitasValue * densitas2[0].densitasValue });
-                        tempIllness.push({ illnessCode: illnessesB, densitasValue: densitas1[x].densitasValue * densitas2[1].densitasValue });
-                    } else {
-                        tempIllness.push({ illnessCode: intersection, densitasValue: densitas1[x].densitasValue * densitas2[0].densitasValue });
-                        tempIllness.push({ illnessCode: illnessesB, densitasValue: densitas1[x].densitasValue * densitas2[1].densitasValue });
-                    }
+                // Membuat Nilai Densitas untuk Gejala 1 dan 2 Berdasarkan Nilai Belief
+                if (index === 1 || index === 0) {
+                    densitas.push([
+                        { densitasName: 'm' + (densitas.length + 1) + '{' + illnessCode + '}', densitasValue: belief, illnessCode },
+                        { densitasName: 'm' + (densitas.length + 1) + '{θ}', densitasValue: plausability, illnessCode: [ 'θ' ] }]);
+                } else {
+                    densitas.push([
+                        { densitasName: 'm' + (densitas.length + 1) + '{' + illnessCode + '}', densitasValue: belief, illnessCode },
+                        { densitasName: 'm' + (densitas.length + 1) + '{θ}', densitasValue: plausability, illnessCode: [ 'θ' ] }]);
                 }
 
-                for (var x in tempIllness) {
-                    let illness = [tempIllness[x].illnessCode]
-                    union = union.concat(illness).filter((item, index, arr) => {
-                        return index === arr.findIndex((elem) => {
-                            return JSON.stringify(elem) === JSON.stringify(item);
-                        });
-                    });
-                }
+                // Membuat Nilai Densitas Baru
+                if (symptomCode.length > 1 && index > 0) {
+                    const newDensitas = [];
+                    let densitas1 = densitas[densitas.length - 2]; //left
+                    let densitas2 = densitas[densitas.length - 1]; //top
+                    let tempIllness = [];
+                    let conflict = 0;
+                    let union = []; //possibilities illness
 
-                for (var x in union) {
-                    let temp = 0
+                    for (var x in densitas1) {
+                        const illnessesA = densitas2[0].illnessCode;
+                        const illnessesB = densitas1[x].illnessCode;
+                        const intersection = illnessesA.filter(member => illnessesB.includes(member)); //find intersection
 
-                    for (var y in tempIllness) {
-                        if (JSON.stringify(union[x]) === JSON.stringify(tempIllness[y].illnessCode)) {
-                            temp = temp + tempIllness[y].densitasValue;
+                        if (isEmpty(intersection) && densitas1[x].illnessCode[0] !== 'θ') {
+                            conflict = densitas1[x].densitasValue * densitas2[0].densitasValue;
+                        }
+
+                        if (densitas1[x].illnessCode[0] === 'θ') {
+                            tempIllness.push({ illnessCode: illnessesA, densitasValue: densitas1[x].densitasValue * densitas2[0].densitasValue });
+                            tempIllness.push({ illnessCode: illnessesB, densitasValue: densitas1[x].densitasValue * densitas2[1].densitasValue });
+                        } else {
+                            tempIllness.push({ illnessCode: intersection, densitasValue: densitas1[x].densitasValue * densitas2[0].densitasValue });
+                            tempIllness.push({ illnessCode: illnessesB, densitasValue: densitas1[x].densitasValue * densitas2[1].densitasValue });
                         }
                     }
 
-                    if (!isEmpty(union[x])) {
-                        newDensitas.push({
-                            densitasName: 'm' + (densitas.length + 1) + '{' + union[x] + '}',
-                            densitasValue: temp / (1 - conflict),
-                            illnessCode: union[x]
-                        })
+                    for (var x in tempIllness) {
+                        let illness = [tempIllness[x].illnessCode]
+                        console.log(illness)
+                        union = union.concat(illness).filter((item, index, arr) => {
+                            return index === arr.findIndex((elem) => {
+                                return JSON.stringify(elem) === JSON.stringify(item);
+                            });
+                        });
                     }
-                }
 
-                densitas.push(newDensitas);
+                    //Menjumlahkan nilai untuk penyakit yang sama
+                    for (var x in union) {
+                        let temp = 0
+
+                        for (var y in tempIllness) {
+                            if (JSON.stringify(union[x]) === JSON.stringify(tempIllness[y].illnessCode)) {
+                                temp = temp + tempIllness[y].densitasValue;
+                            }
+                        }
+
+                        if (!isEmpty(union[x])) {
+                            newDensitas.push({
+                                densitasName: 'm' + (densitas.length + 1) + '{' + union[x] + '}',
+                                densitasValue: temp / (1 - conflict),
+                                illnessCode: union[x]
+                            })
+                        }
+                    }
+
+                    densitas.push(newDensitas);
+                }
             }
             index++;
         }));
@@ -257,7 +343,8 @@ class Diagnosis {
         let resultIllness = densitas[densitas.length - 1][0].illnessCode;
         let resultDiagnosis = [];
 
-        await Promise.all(densitas.map(async data => {
+        console.log(densitas)
+        await Promise.all(densitas[densitas.length - 1].map(async data => {
             if (maxDensitasValue < data.densitasValue) {
                 maxDensitasValue = data.densitasValue;
                 resultIllness = data.illnessCode;
