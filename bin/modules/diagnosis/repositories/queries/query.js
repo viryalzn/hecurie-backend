@@ -1,4 +1,4 @@
-const collection = 'diagnosis-real-test-2';
+const collection = 'diagnosis-real';
 
 class Query {
 

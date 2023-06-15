@@ -1,4 +1,4 @@
-const collection = 'user-real-test';
+const collection = 'user-real';
 // const collection = 'post';
 class Command {
 

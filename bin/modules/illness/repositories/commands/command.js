@@ -1,4 +1,4 @@
-const collection = 'illness-real-test';
+const collection = 'illness-real';
 class Command {
 
   constructor(db) {

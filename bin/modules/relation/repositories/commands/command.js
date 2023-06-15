@@ -1,4 +1,4 @@
-const collection = 'relation-real-test';
+const collection = 'relation-real';
 // const collection = 'post';
 class Command {
 
