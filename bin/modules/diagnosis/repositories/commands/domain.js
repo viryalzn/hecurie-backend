@@ -294,6 +294,7 @@ class Diagnosis {
             patientName,
             patientAge,
             patientGender,
+            patientSymptoms: symptomCode,
             diagnosis: {
                 confidence: (maxDensitasValue * 100),
                 illness: resultDiagnosis,
