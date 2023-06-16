@@ -32,6 +32,7 @@ class Diagnosis {
         let categoryG = 0;
         let categoryH = 0;
         let categoryI = 0;
+        let categoryJ = 0;
 
         await Promise.all(symptomCode.map(async code => {
             const symptom = await this.symptomQuery.findOne({ symptomCode: code, isDeleted: false })
@@ -53,6 +54,8 @@ class Diagnosis {
                 categoryH++;
             } else if (symptom.data.category === 'I') {
                 categoryI++;
+            } else if (symptom.data.category === 'J') {
+                categoryJ++;
             }
         }));
 
@@ -75,7 +78,7 @@ class Diagnosis {
                 if (illnessCode.includes('PC2')) illnessCode.splice(illnessCode.indexOf('PC2'), 1);
                 if (illnessCode.includes('PD1')) illnessCode.splice(illnessCode.indexOf('PD1'), 1);
                 if (illnessCode.includes('PD2')) illnessCode.splice(illnessCode.indexOf('PD2'), 1);
-                if (!symptomCode.includes('G27')) {
+                if (categoryJ === 0) {
                     if (illnessCode.includes('PB7')) illnessCode.splice(illnessCode.indexOf('PB7'), 1);
                     if (illnessCode.includes('PC4')) illnessCode.splice(illnessCode.indexOf('PC4'), 1);
                     if (illnessCode.includes('PD4')) illnessCode.splice(illnessCode.indexOf('PD4'), 1);
@@ -168,7 +171,7 @@ class Diagnosis {
                 if (illnessCode.includes('PD2')) illnessCode.splice(illnessCode.indexOf('PD2'), 1);
                 if (illnessCode.includes('PD3')) illnessCode.splice(illnessCode.indexOf('PD3'), 1);
                 if (illnessCode.includes('PD4')) illnessCode.splice(illnessCode.indexOf('PD4'), 1);
-                if (!symptomCode.includes('G5')) {
+                if (categoryJ === 0) {
                     if (illnessCode.includes('PA3')) illnessCode.splice(illnessCode.indexOf('PA3'), 1);
                     if (illnessCode.includes('PB3')) illnessCode.splice(illnessCode.indexOf('PB3'), 1);
                 }
