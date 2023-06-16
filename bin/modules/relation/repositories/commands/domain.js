@@ -145,14 +145,12 @@ class Relation {
             };
 
             await this.symptomCommand.upsertOne({ symptomId: existingSymptom.data.symptomId }, updateIllness);
-            console.log('masuktambah')
         }));
 
         return wrapper.data(updateRelation.data);
     }
 
     async deleteRelation(payload) {
-        console.log(payload)
         const ctx = 'domain-deleteRelation';
         const { relationId } = payload;
         const symptoms = [];

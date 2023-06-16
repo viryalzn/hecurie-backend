@@ -39,7 +39,6 @@ class Illness {
         ];
 
         const illness = await this.query.aggregate(aggregate);
-        console.log(illness)
 
         const countData = await this.query.countData(aggregate[0].$match);
         let result = illness.data;

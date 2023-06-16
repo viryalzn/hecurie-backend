@@ -237,7 +237,6 @@ class Diagnosis {
 
                     for (var x in tempIllness) {
                         let illness = [tempIllness[x].illnessCode]
-                        console.log(illness)
                         union = union.concat(illness).filter((item, index, arr) => {
                             return index === arr.findIndex((elem) => {
                                 return JSON.stringify(elem) === JSON.stringify(item);
@@ -274,7 +273,6 @@ class Diagnosis {
         let resultIllness = densitas[densitas.length - 1][0].illnessCode;
         let resultDiagnosis = [];
 
-        console.log(densitas)
         await Promise.all(densitas[densitas.length - 1].map(async data => {
             if (maxDensitasValue < data.densitasValue) {
                 maxDensitasValue = data.densitasValue;

@@ -44,7 +44,6 @@ class Illness {
     }
 
     async updateIllness(payload) {
-        console.log(payload)
         const ctx = 'domain-updateIllness';
         const { illnessId, illnessName, illnessCategory, explanation, solution } = payload;
 
